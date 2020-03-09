@@ -31,5 +31,3 @@ for i in range (0,len(list_of_nums)):
 
 print("True"*x)
 
-print(new_list_of_nums)
-
