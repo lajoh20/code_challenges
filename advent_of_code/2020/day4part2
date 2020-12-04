@@ -1,0 +1,60 @@
+hair_couler = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]
+eye_couler = [ "amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+data_unformated = open("input.txt")
+data = data_unformated.readlines()
+passport = ""
+formated_data=[]
+passdict = {}
+def Convert(lst):
+	res_dct = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
+	return res_dct
+
+for i in range(0,len(data)):
+	if data[i]!= "\n":
+		passport = passport+data[i]
+	else:
+		passport = passport.replace(":"," ").split()
+		for i in range(0,len(passport)-1,2):
+			passdict[passport[i]]=passport[i+1]
+		formated_data.append(passdict)
+		passport = ""
+		passdict = {}
+result = 0
+for i in range(0,len(formated_data)):
+	try:
+		x = formated_data[i]
+		check_passport = [x["byr"],x["iyr"],x["eyr"],x["hgt"],x["hcl"],x["ecl"],x["pid"]]
+		
+		if len(check_passport[0])== 4 and int(check_passport[0])>1919 and int(check_passport[0])<2003 and len(check_passport[1])== 4 and int(check_passport[1])>2009 and int(check_passport[1])<2021 and len(check_passport[2])== 4 and int(check_passport[2])>2019 and int(check_passport[2])<2031 and check_passport[4][0]=="#" and len(check_passport[4]) == 7 and check_passport[4][1] in hair_couler and check_passport[4][2] in hair_couler and check_passport[4][3] in hair_couler and check_passport[4][4] in hair_couler and check_passport[4][5] in hair_couler and check_passport[6][1] in hair_couler and check_passport[5] in eye_couler and len(check_passport[5])==3 and len(check_passport[6]) == 9 and int(check_passport[6])<1000000000:
+			if "cm" in check_passport[3]:
+				numhgt = int(check_passport[3].strip("cm"))
+				if numhgt > 149 and numhgt< 194:
+					result = result+1
+					print(check_passport)
+
+			if "in" in check_passport[3]:
+				numhgt = int(check_passport[3].strip("in"))
+				if numhgt > 59 and numhgt< 77:
+					result = result+1
+					print(check_passport)
+
+
+	except:
+		pass
+print(result)
+
+"""
+byr (Birth Year) - four digits; at least 1920 and at most 2002.
+iyr (Issue Year) - four digits; at least 2010 and at most 2020.
+eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
+hgt (Height) - a number followed by either cm or in:
+If cm, the number must be at least 150 and at most 193.
+If in, the number must be at least 59 and at most 76.
+hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
+ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
+pid (Passport ID) - a nine-digit number, including leading zeroes.
+cid (Country ID) - ignored, missing or not.
+
+					
+
+"""
