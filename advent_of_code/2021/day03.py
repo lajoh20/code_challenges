@@ -20,3 +20,5 @@ print(len(cleaninput))
 101011101011
 
 part#2
+
+solved with an execel table
